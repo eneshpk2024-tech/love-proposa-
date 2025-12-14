@@ -1,39 +1,36 @@
 <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Just One Question ❤️</title>
   <style>
-    * {
+    * { box-sizing: border-box; }
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  text-align: center;
-  overflow: hidden;
-}
-
-.container {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      overflow: hidden;
+    }.screen {
+  width: 100%;
+  max-width: 420px;
   padding: 24px;
-  max-width: 360px;
-  animation: fadeIn 2s ease-in-out;
+  text-align: center;
+  animation: fadeIn 1s ease;
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-bottom: 12px;
 }
 
 p {
   font-size: 1.1rem;
-  line-height: 1.6;
+  line-height: 1.5;
   margin-bottom: 24px;
 }
 
@@ -43,30 +40,38 @@ p {
   margin: 16px 0;
 }
 
+.btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 button {
-  background: #fff;
-  color: #ff4d6d;
   border: none;
-  padding: 14px 28px;
-  border-radius: 30px;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  border-radius: 999px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-button:hover {
-  transform: scale(1.05);
+button:active {
+  transform: scale(0.95);
 }
 
-.hidden {
-  display: none;
+.yes {
+  background: #fff;
+  color: #ff4f7b;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-.final {
-  animation: zoomIn 1.5s ease forwards;
+.no {
+  background: rgba(255,255,255,0.3);
+  color: #fff;
 }
+
+.hidden { display: none; }
 
 @keyframes beat {
   0%, 100% { transform: scale(1); }
@@ -78,79 +83,79 @@ button:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes zoomIn {
-  from { opacity: 0; transform: scale(0.5); }
-  to { opacity: 1; transform: scale(1); }
+/* Confetti hearts */
+.confetti {
+  position: fixed;
+  top: -10px;
+  font-size: 1.5rem;
+  animation: fall linear forwards;
 }
 
-/* Floating hearts */
-.floating-heart {
-  position: absolute;
-  bottom: -20px;
-  font-size: 20px;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.8;
-}
-
-@keyframes floatUp {
-  from {
-    transform: translateY(0) translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-110vh) translateX(-30px);
-    opacity: 0;
-  }
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 
   </style>
 </head>
-<body>
-  <div class="container" id="step1">
-    <h1>Hey Love ❤️</h1>
+<body>  <!-- Screen 1 -->  <div id="screen1" class="screen">
+    <h1>Hey Dhikshika ❤️</h1>
     <div class="heart">💖</div>
     <p>
-      From the moment you came into my life,<br />
-      everything became brighter, warmer, and more beautiful.
+      From the moment <strong>Dhikshika</strong> came into my life,<br />everything started feeling… right.<br /><em>My Madam, my Thangoo, my Chellam, my Papa.</em>
     </p>
-    <button onclick="nextStep()">Tap to continue</button>
-  </div>  <div class="container hidden" id="step2">
-    <h1>My Heart Says…</h1>
-    <div class="heart">💘</div>
+    <button class="yes" onclick="next()">Tap to continue</button>
+  </div>  <!-- Screen 2 -->  <div id="screen2" class="screen hidden">
+    <h1>Just One Honest Question 😳</h1>
     <p>
-      I don't want a perfect story,<br />
-      I just want <strong>you</strong> in every chapter of my life.
+      You make me smile on my worst days,<br />laugh a little louder,<br />and love a little deeper, <strong>Dhikshika</strong> — my forever Thangoo.
     </p>
-    <button onclick="finalStep()">One last thing…</button>
-  </div>  <div class="container hidden final" id="step3">
-    <h1>Will You Marry Me? 💍</h1>
-    <div class="heart">❤️‍🔥</div>
+    <button class="yes" onclick="next()">One more thing…</button>
+  </div>  <!-- Screen 3 (Proposal) -->  <div id="screen3" class="screen hidden">
+    <h1>Will You Be Mine Forever, Dhikshika? 💍</h1>
+    <div class="heart">❤️</div>
+    <p>Not just today.<br />Not just tomorrow.<br />But for all the little moments in between,<br />I choose you, <strong>Dhikshika</strong>.</p>
+    <div class="btns">
+      <button class="yes" onclick="sayYes()">YES 💕</button>
+      <button class="no" onclick="moveNo(this)">No 🙈</button>
+    </div>
+  </div>  <!-- Screen 4 (Yes) -->  <div id="screen4" class="screen hidden">
+    <h1>Dhikshika Said YES!!! 😍</h1>
+    <div class="heart">💍</div>
     <p>
-      I promise to love you, support you,
-      and choose you every single day.
+      This is the beginning of<br />our forever, <strong>Dhikshika</strong>.
     </p>
-    <button onclick="alert('She said YES! 💕')">YES 💖</button>
+    <p style="font-size:0.9rem; opacity:0.9;">I love you more than words can ever explain ❤️</p>
   </div>  <script>
-    function nextStep() {
-      document.getElementById('step1').classList.add('hidden');
-      document.getElementById('step2').classList.remove('hidden');
+    let current = 1;
+
+    function next() {
+      document.getElementById(`screen${current}`).classList.add('hidden');
+      current++;
+      document.getElementById(`screen${current}`).classList.remove('hidden');
     }
 
-    function finalStep() {
-      document.getElementById('step2').classList.add('hidden');
-      document.getElementById('step3').classList.remove('hidden');
+    function moveNo(btn) {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
-    // Create floating hearts
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'floating-heart';
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = 4 + Math.random() * 3 + 's';
-      document.body.appendChild(heart);
+    function sayYes() {
+      document.getElementById('screen3').classList.add('hidden');
+      document.getElementById('screen4').classList.remove('hidden');
+      launchConfetti();
+    }
 
-      setTimeout(() => heart.remove(), 7000);
-    }, 500);
+    function launchConfetti() {
+      for (let i = 0; i < 30; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.innerText = '💖';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.animationDuration = 2 + Math.random() * 3 + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+      }
+    }
   </script></body>
 </html>
